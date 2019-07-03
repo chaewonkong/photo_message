@@ -5,15 +5,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="mobile-web-app-capable" content="yes" />
+
+    <!-- FontAwesome -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.9.0/css/all.css"
+      integrity="sha384-i1LQnF23gykqWXg6jxC2ZbCbUMxyw5gLZY6UiUS98LYV5unm8GWmfkIS6jqJfb4E"
+      crossorigin="anonymous"
+    />
     <link
       rel="stylesheet"
       href="/modules/bootstrap/dist/css/bootstrap.min.css"
     />
     <title>Photo Message</title>
   </head>
-  <body>
+  <body class="bg-info">
+    <!-- Loading -->
+    <main class="p-2">
+      <div class="container-fluid" id="message" style="margin-top: 10rem;">
+        <div id="loader" class="text-center text-light">
+          <i class="fas fa-spinner fa-2x fa-pulse"></i>
+          <p>Loading Messages</p>
+        </div>
+      </div>
+    </main>
+
+    <!-- Toolbox and Message Textarea -->
+    <div class="container-fluid fixed-bottom">
+      <div id="toolbar" class="row bg-dark">
+        <div class="col p-2 d-flex">
+          <button
+            data-toggle="modal"
+            data-target="#viewfinder"
+            id="camera"
+            class="fas fa-camera fa-lg px-3 mr-2 text-light border-light bg-dark rounded-circle"
+          ></button>
+          <textarea
+            id="caption"
+            placeholder="Image Caption"
+            maxlength="120"
+            style="resize: none;"
+            class="flex-grow-1 w-100 rounded border-light align-middle pr-5"
+          ></textarea>
+          <a
+            id="send"
+            style="right: 1.25rem; bottom: 1.25rem; padding: 0.5rem"
+            class="fas fa-paper-plane fa-lg position-absolute text-dark"
+            href=""
+          ></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Camera Modal -->
+    <div
+      id="viewfinder"
+      class="modal fade"
+      tabindex="-1"
+      role="dialog"
+      area-hidden="true"
+    >
+      <div class="modal-dialog fixed-bottom" role="document">
+        <div class="modal-content bg-dark">
+          <div class="modal-body p-1 text-center">
+            <video
+              id="player"
+              autoplay
+              class="w-100 rounded bg-white"
+              style="height: 300px;"
+            ></video>
+            <button
+              data-dismiss="modal"
+              id="shutter"
+              class="fas fa-circle fa-3x rounded-circle bg-white text-danger p-1 my-2"
+            ></button>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- Scripts -->
-    <script src="/modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="/modules/jquery/dist/jquery.min.js"></script>
+    <script src="/modules/bootstrap/dist/js/bootstrap.min.js"></script>
   </body>
 </html>
