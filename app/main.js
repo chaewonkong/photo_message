@@ -36,7 +36,8 @@ const _init = () => {
       return;
     }
 
-    console.log("adding message", caption);
+    // Render new message in feed
+    renderMessage({ photo: camera.photo, caption });
 
     // Reset caption field on success
     $("#caption").val("");
@@ -45,4 +46,38 @@ const _init = () => {
       .removeClass("withphoto");
     camera.photo = null;
   });
+};
+
+// create new message element
+const renderMessage = message => {
+  // Message HTML
+  let msgHTML = `
+    <div style="display: none;" class="row message bg-light mb-2 rounded shadow">
+        <div class="col-2 p-1">
+            <img src="${message.photo}" class="photo w-100 rounded"/>
+        </div>
+        <div class="col-10 p-1">
+        ${message.caption}
+        </div>
+    </div>
+    `;
+
+  // Prepend to #messages
+  $(msgHTML)
+    .prependTo("#messages")
+    .show(500)
+
+    // Bind a click handler on new img element to show in modal
+    .find("img")
+    .on("click", showPhoto);
+};
+
+// Show message photo in modal
+const showPhoto = e => {
+  // Get photo src
+  let photoSrc = $(e.currentTarget).attr("src");
+
+  // Set to and show photoframe modal
+  $("#photoframe img").attr("src", photoSrc);
+  $("#photoframe").modal("show");
 };
