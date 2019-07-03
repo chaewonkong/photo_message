@@ -13,10 +13,32 @@
       integrity="sha384-i1LQnF23gykqWXg6jxC2ZbCbUMxyw5gLZY6UiUS98LYV5unm8GWmfkIS6jqJfb4E"
       crossorigin="anonymous"
     />
+
+    <!-- Bootstrap -->
     <link
       rel="stylesheet"
       href="/modules/bootstrap/dist/css/bootstrap.min.css"
     />
+
+    <!-- Toastr -->
+    <link rel="stylesheet" href="/modules/toastr/build/toastr.min.css" />
+    <style media="screen">
+      #toast-container {
+        top: 0;
+        left: 0;
+        width: 100%;
+      }
+      #toast-container > div {
+        opacity: 1;
+        box-shadow: 0 0 2rem rgba(0, 0, 0, 0.75);
+        border-radius: 0;
+        width: 100%;
+      }
+      #camera.withphoto {
+        color: transparent !important;
+        background-size: cover;
+      }
+    </style>
     <title>Photo Message</title>
   </head>
   <body class="bg-info">
@@ -51,7 +73,6 @@
             id="send"
             style="right: 1.25rem; bottom: 1.25rem; padding: 0.5rem"
             class="fas fa-paper-plane fa-lg position-absolute text-dark"
-            href=""
           ></a>
         </div>
       </div>
@@ -68,12 +89,7 @@
       <div class="modal-dialog fixed-bottom" role="document">
         <div class="modal-content bg-dark">
           <div class="modal-body p-1 text-center">
-            <video
-              id="player"
-              autoplay
-              class="w-100 rounded bg-white"
-              style="height: 300px;"
-            ></video>
+            <video id="player" autoplay class="w-100 rounded"></video>
             <button
               data-dismiss="modal"
               id="shutter"
@@ -86,5 +102,22 @@
     <!-- Scripts -->
     <script src="/modules/jquery/dist/jquery.min.js"></script>
     <script src="/modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/modules/toastr/build/toastr.min.js"></script>
+    <script src="Classes/Camera.js"></script>
+    <script src="/main.js"></script>
+
+    <!-- Init App if supported -->
+    <script>
+      // Check browser support
+      if ("mediaDevices" in navigator) {
+        // Init App
+        _init();
+      } else {
+        // Show Notification
+        toastr.error(null, "This app is not supported by your browser", {
+          timeout: 30000
+        });
+      }
+    </script>
   </body>
 </html>
